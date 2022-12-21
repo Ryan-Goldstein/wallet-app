@@ -11,6 +11,7 @@ import { Collectable } from '../../types/solana'
 import { ww } from '../../utils/layout'
 import CircleLoader from '../../components/CircleLoader'
 import { ReAnimatedBox } from '../../components/AnimatedBox'
+import useHaptic from '../../hooks/useHaptic'
 
 const COLLECTABLE_HEIGHT = ww / 2
 const NftListItem = ({
@@ -23,21 +24,24 @@ const NftListItem = ({
   const { lm } = useBorderRadii()
   const { json } = collectables[item][0]
   const navigation = useNavigation<CollectableNavigationProp>()
+  const { triggerImpact } = useHaptic()
 
   const handleCollectableNavigation = useCallback(
     (collection: Collectable[]) => () => {
       if (collection.length > 1) {
+        triggerImpact()
         navigation.navigate('CollectionScreen', {
           collection,
         })
       } else if (collection[0]?.json?.image) {
+        triggerImpact()
         // TODO: Cache image so we don't need to fetch uri in all the different nft screens
         navigation.navigate('NftDetailsScreen', {
           collectable: collection[0],
         })
       }
     },
-    [navigation],
+    [navigation, triggerImpact],
   )
 
   return (

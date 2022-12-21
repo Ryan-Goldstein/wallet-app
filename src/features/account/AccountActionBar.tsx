@@ -211,7 +211,7 @@ const AccountActionBar = ({
           )}
         </Box>
       )}
-      {isHeliumMainnet && (
+      {!maxCompact && isHeliumMainnet && (
         <Box
           marginEnd={fabMargin}
           flexDirection={hasBottomTitle ? 'column' : 'row'}

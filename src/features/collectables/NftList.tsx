@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { RefreshControl } from 'react-native'
 import Box from '../../components/Box'
 import useCollectables from '../../hooks/useCollectables'
-import CollectableListItem, { CollectableSkeleton } from './NftListItem'
+import NftListItem, { CollectableSkeleton } from './NftListItem'
 import { useColors } from '../../theme/themeHooks'
 
 const NftList = () => {
@@ -31,9 +31,7 @@ const NftList = () => {
       // eslint-disable-next-line react/no-unused-prop-types
       item: string
     }) => {
-      return (
-        <CollectableListItem item={token} collectables={collectablesWithMeta} />
-      )
+      return <NftListItem item={token} collectables={collectablesWithMeta} />
     },
     [collectablesWithMeta],
   )

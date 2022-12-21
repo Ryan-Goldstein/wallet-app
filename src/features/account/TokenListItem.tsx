@@ -9,6 +9,7 @@ import TouchableOpacityBox from '../../components/TouchableOpacityBox'
 import AccountTokenCurrencyBalance from './AccountTokenCurrencyBalance'
 import TokenIcon from './TokenIcon'
 import { HomeNavigationProp } from '../home/homeTypes'
+import useHaptic from '../../hooks/useHaptic'
 
 export const ITEM_HEIGHT = 72
 type Props = {
@@ -19,13 +20,15 @@ type Props = {
 const TokenListItem = ({ ticker, balance, staked }: Props) => {
   const disabled = ticker === 'SOL'
   const navigation = useNavigation<HomeNavigationProp>()
+  const { triggerImpact } = useHaptic()
 
   const handleNavigation = useCallback(() => {
     if (ticker === 'SOL') {
       return
     }
+    triggerImpact()
     navigation.navigate('AccountTokenScreen', { tokenType: ticker })
-  }, [navigation, ticker])
+  }, [navigation, ticker, triggerImpact])
 
   return (
     <FadeInOut>

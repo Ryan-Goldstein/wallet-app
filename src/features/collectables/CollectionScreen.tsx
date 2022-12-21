@@ -14,6 +14,7 @@ import globalStyles from '../../theme/globalStyles'
 import { useBorderRadii } from '../../theme/themeHooks'
 import { Collectable } from '../../types/solana'
 import { ReAnimatedBox } from '../../components/AnimatedBox'
+import useHaptic from '../../hooks/useHaptic'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -23,17 +24,18 @@ type Route = RouteProp<CollectableStackParamList, 'CollectionScreen'>
 
 const CollectionScreen = () => {
   const route = useRoute<Route>()
-
   const navigation = useNavigation<CollectableNavigationProp>()
   const COLLECTABLE_HEIGHT = Dimensions.get('window').width / 2
   const collectables = route.params.collection
   const { lm: borderRadius } = useBorderRadii()
+  const { triggerImpact } = useHaptic()
 
   const handleNavigateToCollectable = useCallback(
     (collectable: Collectable) => {
+      triggerImpact()
       navigation.navigate('NftDetailsScreen', { collectable })
     },
-    [navigation],
+    [navigation, triggerImpact],
   )
 
   const renderCollectable = useCallback(

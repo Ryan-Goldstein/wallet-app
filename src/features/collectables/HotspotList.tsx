@@ -14,14 +14,16 @@ import HotspotListItem from './HotspotListItem'
 import ButtonPressable from '../../components/ButtonPressable'
 import useHotspots from '../../hooks/useHotspots'
 import FadeInOut from '../../components/FadeInOut'
+import useHaptic from '../../hooks/useHaptic'
 
 const HotspotList = () => {
   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation<CollectableNavigationProp>()
   const { t } = useTranslation()
-
   const bottomSpace = useMemo(() => bottom * 2, [bottom])
   const { primaryText } = useColors()
+  const { triggerImpact } = useHaptic()
+
   const {
     hotspots,
     hotspotsWithMeta,
@@ -31,15 +33,15 @@ const HotspotList = () => {
 
   const handleNavigateToCollectable = useCallback(
     (collectable: Collectable) => {
+      triggerImpact()
       navigation.navigate('HotspotDetailsScreen', { collectable })
     },
-    [navigation],
+    [navigation, triggerImpact],
   )
 
   const renderHeader = useCallback(() => {
     return (
       <ButtonPressable
-        style={{ flexBasis: 0 }}
         flexGrow={1}
         marginTop="m"
         borderRadius="round"
