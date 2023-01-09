@@ -7,7 +7,7 @@ import FadeInOut from '../../components/FadeInOut'
 import Text from '../../components/Text'
 import TouchableOpacityBox from '../../components/TouchableOpacityBox'
 import AccountTokenCurrencyBalance from './AccountTokenCurrencyBalance'
-import TokenIcon from './TokenIcon'
+import TokenIcon from '../../components/TokenIcon'
 import { HomeNavigationProp } from '../home/homeTypes'
 
 export const ITEM_HEIGHT = 72
